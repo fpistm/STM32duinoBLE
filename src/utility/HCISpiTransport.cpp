@@ -19,6 +19,10 @@
 
 #include "HCISpiTransport.h"
 
+#if __has_include("ble_spi_conf.h")
+  #include "ble_spi_conf.h"
+#endif
+
 #if defined(ARDUINO_STEVAL_MKBOXPRO)
 /* STEVAL-MKBOXPRO */
 SPIClass SpiHCI(PA7, PA6, PA5);
@@ -55,6 +59,9 @@ HCISpiTransportClass HCISpiTransport(SpiHCI, BLUENRG_M2SP, A1, A0, D7, 1000000, 
 /* Shield BNRG2A1 with SPI clock on D13 */
 #define SpiHCI SPI
 HCISpiTransportClass HCISpiTransport(SpiHCI, BLUENRG_M2SP, A1, A0, D7, 1000000, SPI_MODE1);
+#elif defined(CUSTOM_BLE_SPI)
+SPIClass SpiHCI(BLE_SPI_MOSI, BLE_SPI_MISO, BLE_SPI_CLK);
+HCISpiTransportClass HCISpiTransport(SpiHCI, BLE_CHIP_TYPE, BLE_SPI_CS, BLE_SPI_IRQ, BLE_RESET, BLE_SPI_FREQ, BLE_SPI_MODE);
 #else
 #error "Unsupported board or shield selected!"
 #endif
