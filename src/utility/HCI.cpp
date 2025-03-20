@@ -993,7 +993,7 @@ void HCIClass::handleEventPkt(uint8_t /*plen*/, uint8_t pdata[])
     Serial.println(leMetaHeader->subevent,HEX);
 #endif
     switch((LE_META_EVENT)leMetaHeader->subevent){
-      case 0x0A:{
+      case ENHANCED_CONN_COMPLETE:{
         struct __attribute__ ((packed)) EvtLeConnectionComplete {
           uint8_t status;
           uint16_t handle;
